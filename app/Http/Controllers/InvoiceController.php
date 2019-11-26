@@ -5,9 +5,30 @@ namespace App\Http\Controllers;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
 
 class InvoiceController extends Controller
 {
+
+    public function show(Request $request, $id)
+    {
+        /**
+         * @var $invoice Collection
+         */
+        $invoice = app('db')
+            ->table('invoices')
+            ->where('id', '=', $id)
+            ->get();
+
+        $payments = app('db')
+            ->table('payments')
+            ->where('invoice_id', '=', $id)
+            ->get();
+
+        $invoice->put('payments', $payments);
+
+        return $invoice;
+    }
     /**
      * @param  Request  $request
      * @return \Illuminate\Http\JsonResponse
