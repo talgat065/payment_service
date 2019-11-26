@@ -42,6 +42,15 @@ class InvoiceController extends Controller
 
         return $invoice;
     }
+
+    public function getInfo($id)
+    {
+        return response()->json([
+            'success' => true,
+            'exists' => app('db')->table('invoices')->where('id', $id)->exists(),
+        ]);
+    }
+
     /**
      * @param  Request  $request
      * @return \Illuminate\Http\JsonResponse
