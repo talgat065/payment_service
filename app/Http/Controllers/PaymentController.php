@@ -19,6 +19,8 @@ class PaymentController extends Controller
             'invoice_id' => 'required|integer',
             'payment_method' => 'required',
             'datetime' => 'required|date_format:Y-m-d H:i:s',
+            'amount' => 'numeric|nullable',
+            'reference' => 'string|max:255|nullable',
         ]);
 
         $job = new CreatePaymentJob(collect($request->toArray()));

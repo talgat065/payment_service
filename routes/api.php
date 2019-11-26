@@ -8,9 +8,9 @@ $router->group(['prefix' => 'api'], function() use ($router) {
     // Private endpoints
     $router->group(['prefix' => 'private'], function() use ($router) {
         $router->get('/invoice/{id}', 'InvoiceController@show');
-        $router->post('/invoice/create', 'InvoiceController@store');
-        $router->put('/invoice/update', 'InvoiceController@update');
-        $router->post('/payment/create', 'PaymentController@store');
+        $router->post('/invoice', 'InvoiceController@store');
+        $router->put('/invoice', 'InvoiceController@update');
+        $router->post('/payment', 'PaymentController@store');
     });
 });
 
