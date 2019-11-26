@@ -4,18 +4,17 @@ namespace App\Http\Controllers;
 
 class PaymentMethodsController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        //
-    }
-
     public function index()
     {
-        return response()->json(['cash'], 200);
+        return response()->json([
+            [
+                'name' => 'Cash',
+                'description' => 'Cash payment.',
+            ],
+            [
+                'name' => 'Transfer',
+                'message' => 'Offline bank transfer payment.',
+            ],
+        ], 200);
     }
 }
