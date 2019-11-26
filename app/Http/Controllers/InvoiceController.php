@@ -9,6 +9,19 @@ use Illuminate\Support\Collection;
 
 class InvoiceController extends Controller
 {
+    public function filterByDate(Request $request)
+    {
+        $this->validate($request, [
+            'start_date' => 'required|date_format:Y-m-d H:i:s',
+            'end_date' => 'required|date_format:Y-m-d H:i:s',
+            'paymentMethod' => 'string|max:255',
+        ]);
+
+        return app('db')
+            ->table('invoices')
+            ->whereBetween('created_at', [$request->get('start_date'), $request->get('end_date')])
+            ->get();
+    }
 
     public function show(Request $request, $id)
     {
