@@ -43,11 +43,36 @@ class InvoiceController extends Controller
         return $invoice;
     }
 
-    public function getInfo($id)
+    public function check($id)
     {
         return response()->json([
+            'exists' => app('db')
+                ->table('invoices')
+                ->where('id', $id)
+                ->exists(),
+        ]);
+    }
+
+    public function getInfo($id)
+    {
+        /**
+         * @var $invoice Collection
+         */
+        $invoice = app('db')
+            ->table('invoices')
+            ->where('id', '=', $id)
+            ->first();
+
+        if ($invoice === null) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Invoice not found',
+            ], 404);
+        }
+
+        return response()->json([
             'success' => true,
-            'exists' => app('db')->table('invoices')->where('id', $id)->exists(),
+            'data' => $invoice,
         ]);
     }
 

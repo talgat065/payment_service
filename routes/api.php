@@ -5,6 +5,7 @@ $router->group(['prefix' => 'api'], function() use ($router) {
     // Public endpoints
     $router->get('/paymentMethods', 'PaymentMethodsController@index');
     $router->get('/invoice/{id}', 'InvoiceController@getInfo');
+    $router->get('/checkInvoice/{id}', 'InvoiceController@check');
 
     // Private endpoints
     $router->group(['prefix' => 'private'], function() use ($router) {
