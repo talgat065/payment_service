@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-class ExampleController extends Controller
+class PaymentMethodsController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -14,5 +14,8 @@ class ExampleController extends Controller
         //
     }
 
-    //
+    public function index()
+    {
+        return response()->json(['cash'], 200);
+    }
 }
