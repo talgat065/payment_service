@@ -9,6 +9,11 @@ use Illuminate\Support\Collection;
 
 class InvoiceController extends Controller
 {
+    /**
+     * @param  Request  $request
+     * @return mixed
+     * @throws \Illuminate\Validation\ValidationException
+     */
     public function filterByDate(Request $request)
     {
         $this->validate($request, [
@@ -23,6 +28,11 @@ class InvoiceController extends Controller
             ->get();
     }
 
+    /**
+     * @param  Request  $request
+     * @param $id
+     * @return Collection
+     */
     public function show(Request $request, $id)
     {
         /**
@@ -43,6 +53,10 @@ class InvoiceController extends Controller
         return $invoice;
     }
 
+    /**
+     * @param $id
+     * @return JsonResponse
+     */
     public function check($id)
     {
         return response()->json([
@@ -53,6 +67,10 @@ class InvoiceController extends Controller
         ]);
     }
 
+    /**
+     * @param $id
+     * @return JsonResponse
+     */
     public function getInfo($id)
     {
         /**
@@ -65,13 +83,13 @@ class InvoiceController extends Controller
 
         if ($invoice === null) {
             return response()->json([
-                'success' => false,
+                'status' => false,
                 'message' => 'Invoice not found',
             ], 404);
         }
 
         return response()->json([
-            'success' => true,
+            'status' => true,
             'data' => $invoice,
         ]);
     }
@@ -90,7 +108,13 @@ class InvoiceController extends Controller
         ]);
 
         try {
-            app('db')->table('invoices')->insert($request->all());
+            app('db')->table('invoices')->insert([
+                'order_number' => $request->get('order_number'),
+                'order_price' => $request->get('order_price'),
+                'payment_time_limit' => $request->get('payment_time_limit'),
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s'),
+            ]);
             return response()->json([
                 'status' => true,
             ], 201);
@@ -120,7 +144,11 @@ class InvoiceController extends Controller
             app('db')
                 ->table('invoices')
                 ->where('id', $request->get('id'))
-                ->update($request->all());
+                ->update([
+                    'order_price' => $request->get('order_price'),
+                    'payment_time_limit' => $request->get('payment_time_limit'),
+                    'updated_at' => date('Y-m-d H:i:s'),
+                ]);
             return response()->json([
                 'status' => true,
             ], 200);
