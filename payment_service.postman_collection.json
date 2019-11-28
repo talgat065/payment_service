@@ -1,0 +1,311 @@
+{
+	"info": {
+		"_postman_id": "f7919bb4-e587-4f03-b6bc-9c0e38be2c8f",
+		"name": "Платежный сервис",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Private",
+			"item": [
+				{
+					"name": "Получение информации по счёту и список проведённых транзакций",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"id\": 1,\n\t\"order_price\": 36000,\n\t\"payment_time_limit\": \"2019-12-20 10:00:00\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost/api/private/invoice/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"private",
+								"invoice",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Получение списка счетов за указанный период времени",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"id\": 1,\n\t\"order_price\": 36000,\n\t\"payment_time_limit\": \"2019-12-20 10:00:00\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost/api/private/invoices?start_date=2019-12-01 12:00:00&end_date=2019-12-31 10:00:00",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"private",
+								"invoices"
+							],
+							"query": [
+								{
+									"key": "start_date",
+									"value": "2019-12-01 12:00:00"
+								},
+								{
+									"key": "end_date",
+									"value": "2019-12-31 10:00:00"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Создание счёта",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"order_number\": 123,\n\t\"order_price\": 42000,\n\t\"payment_time_limit\": \"2019-12-20 10:00:00\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost/api/private/invoice",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"private",
+								"invoice"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Корректировка счёта",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"id\": 2,\n\t\"order_price\": 18000,\n\t\"payment_time_limit\": \"2019-12-20 10:00:00\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost/api/private/invoice",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"private",
+								"invoice"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Проведение операции по счёту",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"invoice_id\": 1,\n\t\"payment_method\": \"cash\",\n\t\"amount\": 4500,\n\t\"reference\": \"KazKom Bank\",\n\t\"datetime\": \"2019-11-01 10:00:00\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost/api/private/payment",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"private",
+								"payment"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Public",
+			"item": [
+				{
+					"name": "Предоставление списка возможных методов оплаты счетов",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/api/paymentMethods",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"paymentMethods"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Проверка существования счёта на оплату",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"id\": 1,\n\t\"order_price\": 36000,\n\t\"payment_time_limit\": \"2019-12-20 10:00:00\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost/api/checkInvoice/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"checkInvoice",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Предоставление страницы с информацией о счёте",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"id\": 1,\n\t\"order_price\": 36000,\n\t\"payment_time_limit\": \"2019-12-20 10:00:00\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost/api/invoice/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"invoice",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "36513438-c582-4417-b616-d6e2981cda1c",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "a64b7dfc-d6df-4198-bdd0-b37b7a0981d4",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "ddbc67aa-f261-4ae2-b6e6-08ee3abac664",
+			"key": "url",
+			"value": "http://localhost",
+			"type": "string"
+		}
+	],
+	"protocolProfileBehavior": {}
+}
