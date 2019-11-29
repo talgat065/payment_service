@@ -1,5 +1,8 @@
 <?php
-
+use Laravel\Lumen\Routing\Router;
+/**
+ * @var $router Router
+ */
 $router->group(['prefix' => 'api'], function() use ($router) {
 
     // Public endpoints
@@ -18,5 +21,3 @@ $router->group(['prefix' => 'api'], function() use ($router) {
         $router->get('/paymentMethods', 'PaymentMethodsController@index');
     });
 });
-
-

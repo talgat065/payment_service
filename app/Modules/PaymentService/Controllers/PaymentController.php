@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Modules\PaymentService\Controllers;
 
+use App\Http\Controllers\Controller;
 use App\Jobs\CreatePaymentJob;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;

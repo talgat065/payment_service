@@ -1,6 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Modules\PaymentService\Controllers;
+
+use App\Http\Controllers\Controller;
 
 class PaymentMethodsController extends Controller
 {

@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Jobs;
+namespace App\Modules\PaymentService\Jobs;
 
+use App\Jobs\Job;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Collection;
 

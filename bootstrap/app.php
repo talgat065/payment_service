@@ -79,6 +79,7 @@ $app->singleton(
 // $app->register(App\Providers\AppServiceProvider::class);
 // $app->register(App\Providers\AuthServiceProvider::class);
 // $app->register(App\Providers\EventServiceProvider::class);
+$app->register(App\Modules\ModuleServiceProvider::class);
 
 /*
 |--------------------------------------------------------------------------
@@ -91,11 +92,18 @@ $app->singleton(
 |
 */
 
+$app->configure('modules');
 $app->router->group([
     'namespace' => 'App\Http\Controllers',
 ], function ($router) {
     require __DIR__.'/../routes/web.php';
-    require __DIR__.'/../routes/api.php';
+});
+
+// Подключаем роуты модуля
+$app->router->group([
+    'namespace' => 'App\Modules\PaymentService\Controllers',
+], function ($router) {
+    require_once __DIR__.'/../app/Modules/PaymentService/Routes/routes.php';
 });
 
 return $app;
